@@ -1,0 +1,84 @@
+<!doctype html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title>nog » panel</title>
+        <link rel="stylesheet" href="/assets/reset.css" type="text/css" media="screen" />   
+        <link rel="stylesheet" href="http://prietz.org/fonts/stylesheet.css" type="text/css" charset="utf-8">
+        <link rel="stylesheet" href="/assets/master.css" type="text/css" media="screen" />
+        <link rel="stylesheet" href="/assets/panel.css" type="text/css" media="screen" />
+    </head>
+    <body>
+    	<div id="biglogo"></div>
+    	<div id="header">
+        	<div id="logo"><a href="/"></a></div>
+			<ul id="links">
+				<li><a href="/logout">Logout</a></li>
+				<li><a href="/b/id:${_userid}/">Your Blog</a></li>
+				<li><p>Hi, ${username}!</p></li>
+			</ul>
+        </div>
+        <ul id="createbar">
+        	<li><a href="/panel/new/0/text">Text</a></li>
+        	<li><a href="/panel/new/1/image">Image</a></li>
+        	<li><a href="/panel/new/2/link">Link</a></li>
+        	<li><a href="/panel/new/3/audio">Audio</a></li>
+        	<li><a href="/panel/new/4/video">Video</a></li>
+        </ul>
+        <div id="articles">
+        	{{each(i, posting) posts}}
+        	<div class="post">
+        		<img alt="avatar" src="/assets/userimg/${posting.username}.png" />
+        		<div class="post-infos">
+        			<div class="actions">
+        				<a class="permalink" href="/b/id:${posting.blogid}/${posting.articleid}/${posting.urlfragment}">↬</a>
+        				{{if _userid===posting.userid}}
+        				<a class="edit" href="/panel/edit/${posting.articleid}">Edit</a>
+        				<form method="POST" action="/panel/delete/${posting.articleid}">
+							<input type="submit" value="Delete"/>
+						</form>
+						{{/if}}
+        			</div>
+        			{{if posting.arttype===0}}
+						<h4 class="blogtitle">${posting.username} on <a href="/b/id:${posting.blogid}">${posting.blogtitle}</a>:</h4>
+						<div class="post-content type${posting.arttype}">
+							<h5>${posting.title}</h5>
+							<p>{{html posting.text}}</p>
+						</div>
+        			{{else posting.arttype===1}}
+        				<h4 class="blogtitle">${posting.username} on <a href="/b/id:${posting.blogid}">${posting.blogtitle}</a>:</h4>
+						<div class="post-content type${posting.arttype}">
+							<img src="${posting.text}" alt="${posting.title}">
+							{{if posting.title}}<h5>${posting.title}</h5>{{/if}}
+						</div>
+        			{{else posting.arttype===2}}
+        				<h4 class="blogtitle">${posting.username} on <a href="/b/id:${posting.blogid}">${posting.blogtitle}</a>:</h4>
+						<div class="post-content type${posting.arttype}">
+							<a class="link" href="${posting.text}">{{if posting.title}}${posting.title}{{else}}${posting.text}{{/if}}</a>
+						</div>
+					{{else posting.arttype===3}}
+        				<h4 class="blogtitle">${posting.username} on <a href="/b/id:${posting.blogid}">${posting.blogtitle}</a>:</h4>
+						<div class="post-content type${posting.arttype}">
+							<div class="audio">{{html posting.text}}</div>
+							{{if posting.title}}<h5>${posting.title}</h5>{{/if}}
+						</div>
+					{{else posting.arttype===4}}
+        				<h4 class="blogtitle">${posting.username} on <a href="/b/id:${posting.blogid}">${posting.blogtitle}</a>:</h4>
+						<div class="post-content type${posting.arttype}">
+							<div class="video">{{html posting.text}}</div>
+							{{if posting.title}}<h5>${posting.title}</h5>{{/if}}
+						</div>
+        			{{/if}}
+        		</div>
+        	</div>
+        	{{/each}}
+        </div>
+        <ul id="border">
+			<li id="top"></li>
+			<li id="right"></li>
+			<li id="bottom"></li>
+			<li id="left"></li>
+		</ul>
+    </body>
+</html>

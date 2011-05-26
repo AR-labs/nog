@@ -1,0 +1,63 @@
+<!doctype html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title>» nog «</title>
+        <link rel="stylesheet" href="/assets/reset.css" type="text/css" media="screen" />   
+        <link rel="stylesheet" href="http://prietz.org/fonts/stylesheet.css" type="text/css" charset="utf-8">
+        <link rel="stylesheet" href="/assets/master.css" type="text/css" media="screen" />
+        <link rel="stylesheet" href="/assets/registration.css" type="text/css" media="screen" />
+    </head>
+    <body>
+    	<div id="biglogo"></div>
+    	<div id="header">
+        	<div id="logo"><a href="/"></a></div>
+			<ul id="links">
+				<li><a href="/login">Login</a></li>
+			</ul>
+        </div>
+        <div id="register">
+        	<form method="POST" action="/login/create">
+        		<div class="wrong" id="username">Username already exists!</div>
+        		<div class="wrong" id="email">Email already exists!</div>
+        		<div class="wrong" id="jserr"></div>
+        		<script>
+        			var inputs = document.getElementById("register").getElementsByTagName("input");
+        			var errField = document.getElementById("jserr");
+        			function verifyPW(){
+        				if(inputs[1].value !== inputs[2].value){
+        					errField.innerHTML = "Password doesn't match!";
+        					document.location.hash = "jserr";
+        				}
+        				else{
+        					document.location.hash = "";
+        				}
+        			}
+        			function verifyMail(){
+        				if(inputs[3].value !== inputs[4].value){
+        					errField.innerHTML = "Email doesn't match!";
+        					document.location.hash = "jserr";
+        				}
+        				else{
+        					document.location.hash = "";
+        				}
+        			}
+       		 	</script>
+        		<input name="loginname" placeholder="Username" type="text" />
+        		<input onkeyup="verifyPW()" name="loginpassword" placeholder="Password" type="password" />
+        		<input onkeyup="verifyPW()"  placeholder="Retype password" type="password" />
+        		<input onkeyup="verifyMail()" name="email" placeholder="Email" type="text" />
+        		<input onkeyup="verifyMail()" placeholder="Retype Email" type="text" />
+        		<input value="Create account" type="submit" />
+        		<!-- todo: client side validation -->
+        	</form>
+        </div>
+        <ul id="border">
+			<li id="top"></li>
+			<li id="right"></li>
+			<li id="bottom"></li>
+			<li id="left"></li>
+		</ul>
+    </body>
+</html>

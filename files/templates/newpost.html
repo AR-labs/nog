@@ -1,0 +1,92 @@
+<!doctype html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title>nog » create new post</title>
+        <link rel="stylesheet" href="/assets/reset.css" type="text/css" media="screen" />   
+        <link rel="stylesheet" href="http://prietz.org/fonts/stylesheet.css" type="text/css" charset="utf-8">
+        <link rel="stylesheet" href="/assets/master.css" type="text/css" media="screen" />
+        <link rel="stylesheet" href="/assets/newpost.css" type="text/css" media="screen" />
+    </head>
+    <body>
+    	<div id="biglogo"></div>
+    	<div id="header">
+        	<div id="logo"><a href="/"></a></div>
+			<ul id="links">
+				<li><a href="/logout">Logout</a></li>
+				<li><a href="/b/id:${userid}/">Your Blog</a></li>
+				<li><p>Hi, ${username}!</p></li>
+			</ul>
+        </div>
+    	<div id="newpost">
+        	<form method="POST" action="/panel/${redirurl}">
+        		<div id="postmeta">
+        			<table>
+        			<tr>
+					<td><label for="posttype">Posttype:</label></td>
+					<td><select name="posttype" size="1">
+						<option{{if posttype==0}} selected{{/if}} value="0">Text </option>
+						<option{{if posttype==1}} selected{{/if}} value="1">Image</option>
+						<option{{if posttype==2}} selected{{/if}} value="2">Link </option>
+						<option{{if posttype==3}} selected{{/if}} value="3">Audio</option>
+						<option{{if posttype==4}} selected{{/if}} value="4">Video</option>
+					</select></td>
+					</tr>
+					<tr>
+					<td><label for="blog">Blog:</label></td>
+					<td><select name="blog" size="1">
+						{{each(i, itm) blogs}}
+							<option {{if itm.selected==true}}selected{{/if}} value="${itm.blogid}">
+								${itm.blogtitle}
+							</option>
+						{{/each}}
+					</select></td>
+					</tr>
+					</table>
+					<label for="urlfragment">Custom Post URL:</label>
+					<input type="text" name="urlfragment" value="${urlfragment}"/>
+  				</div>
+        		<div id="postcontent" class="type${posttype}">
+        		{{if posttype==0}}
+        			<label for="title">Title:</label>
+					<input name="title" type="text" value="${title}"/>
+					<label for="description">Text:</label>
+					<textarea name="description">${description}</textarea>
+				{{else posttype==1}}
+        			<label for="title">Title:</label>
+					<input name="title" type="text" value="${title}"/>
+					<img class="imgcontent" src="${description}" alt="${title}" style="display:none;" />
+					<label for="description">Image URL:</label>
+					<input name="description" type="text" value="${description}"/>
+				{{else posttype==2}}
+        			<label for="title">Title:</label>
+					<input name="title" type="text" value="${title}"/>
+					<label for="description">Link URL:</label>
+					<input name="description" type="text" value="${description}"/>
+				{{else posttype==3}}
+        			<label for="title">Title:</label>
+					<input name="title" type="text" value="${title}"/>
+					<label for="description">Audio Embed Code:</label>
+					<textarea name="description">${description}</textarea>
+				{{else posttype==4}}
+        			<label for="title">Title:</label>
+					<input name="title" type="text" value="${title}"/>
+					<label for="description">Video Embed Code:</label>
+					<textarea name="description">${description}</textarea>
+				{{/if}}
+				{{if isnew}}<input value="Create" type="submit" />
+				{{else}}<input value="Update" type="submit" />{{/if}}
+        		</div>
+        	</form>
+		</div>
+        <ul id="border">
+			<li id="top"></li>
+			<li id="right"></li>
+			<li id="bottom"></li>
+			<li id="left"></li>
+		</ul>
+        <script type="text/javascript" src="/assets/jq.js"></script>
+        <script type="text/javascript" src="/assets/uiupdater.js" ></script>
+    </body>
+</html>

@@ -1,0 +1,48 @@
+==Types of articles==
+
+0: text (default)
+1: image
+2: link	
+3: audio
+4: video
+
+Wichtig für das template.
+
+Audio/Video sind Embed Code
+
+==/arttypes=
+
+
+==Idee/Umsetzung==
+
+Tumblr clone, node.js
+
+
+// /*markdown*/
+
+#nog
+###projekt für den info-lk rehner, q2 2011
+
+##Idee
+
+Unsere grundlegende Idee war der plumpe Nachbau des weit verbreiteten Blogging-Netzwerks Tumblr.com. Dabei waren folgende Kriterien zu beachten:
+
+* Eine Userverwaltung: Nutzer können Accounts erstellen, die bei der Erstellung automatisch einen Blog zugewiesen bekommen.
+
+* Authoring: User können in ein oder mehrere Blogs schreiben. Dabei sollen Anwender nicht nur die Inhalte, sondern auch durch Templates das Aussehen der Blogs selbst bestimmen können.
+
+* Consuming: Zusätzlich können Benutzer Blogs anderer Nutzer "folgen". Dadurch erscheinen diese auf der persönlichen Startseite ("Panel").
+
+
+##Umsetzung
+
+Bei unserem Projekt haben wir stark auf node.js gesetzt, ein sich noch im Beta-Stadium befindliches Framework, mit dessen Hilfe in server-seitigem JavaScript Webserver geschrieben werden können.
+
+Node.js läuft komplett in einem Thread ab. Das bedeutet, dass, anders als bei beispielsweise PHP, das Abwickeln jedes Zugriffs über den selben OS-Thread erfolgt. Andere Tools, beispielsweise der Apache Webserver, starten hingegen für jeden Zugriff einen neuen Thread, der dann beispielsweise PHP läd und ausführt. Auf diese Weise kann Node.js sehr effektiv arbeiten, doch hat diese Struktur auch einige Eigenheiten, die die Entwicklung maßgeblich mitbestimmten. Dies ist das sogenannte Event-basierte Programmieren. Dabei werden Funktionsaufrufe vom System in eine Queue eingereiht. Langwierige Tätigkeiten, wie zum Beispiel das Auslesen einer Datei oder einen Zugriff auf Datenbank, werden dabei im Hintergrund ausgeführt, während die Queue weiter abgearbeitet werden kann. Man kann dann eine "Callback"-Funktion beim Aufrufen mitgeben, die nach Beendigung ausgeführt wird. So ist es möglich, viele gleichzeitige User-Anfragen zu bearbeiten, ohne auf die Festplatte oder das Netzwerk warten zu müssen.
+
+
+###Funktionsweise
+
+Kommt ein Nutzer auf die Startseite, so wird an dieser Stelle überprüft, ob er bereits eingeloggt ist. Ist er das, wird er auf seine persönliche Startseite, dem Panel, weitergeleitet. Handelt es sich hingegen um einen neuen Nutzer, so wird ihm auf der Startseite die Möglichkeit angeboten, einen Account zu erstellen. Wurde dieser erstellt, wird automatisch ein Blog mit dem Usernamen als Titel angelegt. Danach kann der User direkt anfangen eigene Artikel zu erstellen oder anderen Leuten zu folgen.
+
+Es gibt zur Zeit 5 Typen von Artikeln: Text, Bilder, Links, Audio und Video. Bei Bilder und Links werden jeweils nur die entsprechenden URLs angegeben, während bei Audio und Video ein entsprechender Embed-Code eingetragen werden muss.

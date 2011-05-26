@@ -1,0 +1,47 @@
+==TODO==
+
+>> Doku
+>> Umzug auf arlabs mysql server
+
+>> FELIX
+
+- registration: clientside validation
+- blog-verwaltung
+
+
+>> PABLO
+	
+- template for post creation
+- insert different kinds of posting into (panel) template
+
+        			{{if posting.arttype == 0)}}
+        			{{else posting.arttype===1}}
+        			{{else posting.arttype===2}}
+        			{{else posting.arttype===3}}
+        			{{else posting.arttype===4}}
+        			{{/if}}
+
+------------------------------
+
+>> Zusatz-Features
+
+- Tags
+- Source for articles
+- RSS-Feed
+- Theme-Auswahl
+
+
+------------------------------------------------------------------------------
+
+// -- tmp. ausgelagert:
+
+<!-- 		<a href="${baseurl}"><h1> ${blogtitle} </h1> </a>
+		{{each(i, post) data}}
+			<i> ${i} </i>
+			<a href="${baseurl}/${post.urlfragment}"><h2>${post.title}</h2></a>
+			<h3> ${post.created.getTime()} </h3>
+			<h4> {{if post.arttype===2}} <i>text</i> {{/if}} </h4>
+			<p>  {{html post.text}} </p>
+			<hr/>
+		{{/each}}
+ -->
