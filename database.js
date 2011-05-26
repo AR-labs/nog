@@ -171,7 +171,7 @@ exports.createAccount = function(username, password, email, cb){ // works.
 						+"VALUES(?, ?, '1');",
 						[user.insertId, blog.insertId],
 						createCallback(function(data){
-							var tutorial = "";
+							var tutorial = 'Welcome to nog! — The node.js based blog system which was inspired a bit by <a href="http://www.tumblr.com/">tumblr</a>. Now there are several things you could do. You can write your first posts by clicking at the bar at the top. There you can choose your post`s media type, which can be text, an image, a link, audio or video. After that, you could begin to follow people like <a href="/b/id:2/">feedic</a> or <a href="/b/id:1/">papr</a>. And now: Go and explore your possibilities with nog! :)';
 							exports.newArticle(tutorial, 'Tutorial', 0, 'tutorial', user.insertId, blog.insertId);
 							cb(user.insertId);
 						})
