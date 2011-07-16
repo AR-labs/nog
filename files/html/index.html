@@ -21,6 +21,11 @@
         	<form method="POST" action="/login/create">
         		<div class="wrong" id="username">Username already exists!</div>
         		<div class="wrong" id="email">Email already exists!</div>
+        		<noscript class="wrong">Attention: Verification of inputs requires JavaScript!</noscript>
+        		<!--[if lt IE 9]>
+        			<div class="wrong">This application is intended to be used with a modern browser (it's based upon CSS3). 
+        			Please switch to a modern browser like <a href="http://chrome.google.com/">Chrome</a> to use this page properly.</div>
+        		<![endif]-->
         		<div class="wrong" id="jserr"></div>
         		<script>
         			var inputs = document.getElementById("register").getElementsByTagName("input");
@@ -59,5 +64,23 @@
 			<li id="bottom"></li>
 			<li id="left"></li>
 		</ul>
+	<!-- placeholder polyfill -->
+	<script>
+		if( (function(){
+			var i = document.createElement('input');
+			return 'placeholder' in i;
+		})()){
+			(function() {
+				var inputFields = document.getElementsByTagName("input");
+				for (var i=0;i<inputFields.length;i++)
+					if (inputFields[i].getAttribute("type") == "text")
+				 		if (inputFields[i].getAttribute("placeholder") && inputFields[i].getAttribute("placeholder").length > 0) {
+				  			inputFields[i].value = inputFields[i].getAttribute("placeholder"); //set the value
+							inputFields[i].onclick = function() {if (this.value == this.getAttribute("placeholder")) {this.value = "";} return false;} //remove the value
+							inputFields[i].onblur = function() {if (this.value.length < 1) {this.value = this.getAttribute("placeholder");}} //set it back
+						}
+			})();
+		}
+	</script>
     </body>
 </html>
