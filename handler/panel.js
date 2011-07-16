@@ -105,7 +105,7 @@ exports.handleReq = function(request, response, pathParts){
 		rom = to- 10;
 	}
 	db.getPanel(request.session.data.userid, from, to, function(data){
-		response.writeHead(200, {"ContentType": "text/html"});
+		response.writeHead(200, {"Content-Type": "text/html"});
 		response.end(jqtmpl.tmpl(panelTemplate, {
 			"_userid":request.session.data.userid,
 			"username":request.session.data.username,
