@@ -6,6 +6,6 @@ exports.handleReq = function(request, response, pathParts){
 		response.writeHead(302, { 'Location': '/panel'});
 		response.end(); return;
 	}
-	response.writeHead(200);
+	response.writeHead(200, {"Content-Type": "text/html"});
 	response.end(page);
 }

@@ -61,7 +61,7 @@ exports.handleReq = function(request, response, pathParts){
 	if(pathParts[1] === "new" || pathParts[1] === "edit"){
 		db.getUserBlogs(request.session.data.userid, function(data){
 			if(pathParts[1] === "new"){
-				response.writeHead(200);
+				response.writeHead(200, {"Content-Type": "text/html"});
 				response.end(jqtmpl.tmpl(newpost, {
 					"isnew":1,
 					"_userid":request.session.data.userid,
@@ -75,14 +75,14 @@ exports.handleReq = function(request, response, pathParts){
 			if(pathParts[1] === "edit"){
 				db.getArticle(pathParts[2], function(data){
 					if(!data){
-						response.writeHead(404); response.end(); return;
+						assets.show404(response); return;
 					}
 					
 					var posttype;
 					if(pathParts[3] && !isNaN(pathParts[3])) posttype = pathParts[3];
 					else posttype = data[0].arttype;
 					
-					response.writeHead(200);
+					response.writeHead(200, {"Content-Type": "text/html"});
 					response.end(jqtmpl.tmpl(newpost, {
 						"isnew":0,
 						"_userid":request.session.data.userid,

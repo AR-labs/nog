@@ -19,7 +19,7 @@ exports.handleReq = function(request, response, pathParts){
 		request.on("data", function (data) { body += data; });
 		request.on("end", function () {
 			var query = qs.parse(body),
-			give200 = function(){response.writeHead(200); response.end("done");};
+			give200 = function(){response.writeHead(200, {"Content-Type": "text/plain"}); response.end("done");};
 			if(!uniquesDB[query.unique]){
 				assets.show404(response); return;
 			}
@@ -37,14 +37,14 @@ exports.handleReq = function(request, response, pathParts){
 	}
 	db.doesFollow(pathParts[1], request.session.data.userid, function(data){
 		if(data.length && data[0].owned === 1){
-			response.writeHead(200); response.end(); return;
+			response.writeHead(200, {"Content-Type": "text/plain"}); response.end(); return;
 		}
 		var key = Math.floor(Math.random() * 1e8);
 		uniquesDB[key] = true;
 		setTimeout(function(){
 			uniquesDB[key] = undefined;
 		}, 36e4);
-		response.writeHead(200);
+		response.writeHead(200, {"Content-Type": "text/html"});
 		response.end(jqtmpl.tmpl(followTemplate, {
 		    "unique":key,
 		    "what": data.length === 0 ? "follow" : "unfollow",

@@ -57,13 +57,13 @@ exports.handleReq = function(request, response, pathParts){
 				case "jpeg": response.writeHead(200, {"Content-Type": "image/jpg"}); break;
 				default	   : response.writeHead(200);
 			}
-		} else { response.writeHead(200); }
+		} else { response.writeHead(200, {"Content-Type": "text/html"}); }
 		
 		response.end(data, "binary");
 	}, true);
 }
 exports.show404 = function(response){
-	response.writeHeader(404);
+	response.writeHeader(404, {"Content-Type": "text/html"});
 	response.end(er404); return;
 }
 exports.getAsset = getAsset;

@@ -14,10 +14,9 @@ exports.handleReq = function(request, response, pathParts){
 		//article
 		db.getArticle(pathParts[2], function(data){
 			if(!data.length){
-				response.writeHeader(404);
-				response.end(); return;
+				assets.show404(response); return;
 			}
-			response.writeHeader(200);
+			response.writeHeader(200, {"Content-Type": "text/html"});
 			response.end(jqtmpl.tmpl(defaultTemplate,{
 				"baseurl" : baseURL,
 				"blogtitle" : data[0].blogtitle,
@@ -46,7 +45,7 @@ exports.handleReq = function(request, response, pathParts){
 		db.getBlogArticlesById(blogid = pathParts[1].substring(3), 
 			from, to, function(data){
 			if(!data.length){
-				response.writeHead(404);
+				response.writeHead(404, {"Content-Type": "text/html"});
 				response.end("Nothing to show!"); return;
 			}
 			response.writeHead(200, {"Content-Type": "text/html"});
